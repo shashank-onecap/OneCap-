@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
-  ChevronDown,
+  ArrowDown,
+  ArrowUp,
   MoreVertical,
   ChevronLeft,
   ChevronRight,
@@ -8,6 +9,7 @@ import {
 import Image from "next/image";
 
 const AccountsPayableTable = () => {
+  // Previous code remains the same until the return statement
   // Generate 30 items of sample data
   const generateData = () => {
     const suppliers = ["Robert", "Stephen", "Murphy", "Antony"];
@@ -32,7 +34,7 @@ const AccountsPayableTable = () => {
     direction: "asc" | "desc";
   }>({ key: null, direction: "asc" });
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(12);
+  const [rowsPerPage, setRowsPerPage] = useState(14);
 
   // Pagination calculations
   const totalPages = Math.ceil(data.length / rowsPerPage);
@@ -85,12 +87,19 @@ const AccountsPayableTable = () => {
     setSortConfig({ key, direction });
   };
 
+  // Function to get column key from header
+  const getColumnKey = (header: string) => {
+    return header.toLowerCase().replace(/\s+/g, "");
+  };
+
   return (
     <div className="-ml-4 -mr-4">
-      <div className="flex p-2 justify-between items-center mb-4 flex-row border-solid border-b border-gray-300">
-        <h1 className="font-semibold font-inter ml-4">Account Receivables</h1>
+      <div className="flex justify-between items-center border-solid border-b border-[#EAECF0] p-2">
+        <h1 className="font-medium text-black text-lg  text-center font-inter ml-8">
+          Account Payables
+        </h1>
         <div className="flex flex-row items-center justify-end gap-10 mr-5">
-          <div className="flex flex-row items-center justify-between gap-2">
+          <div className="flex flex-row items-center mr-4 justify-between gap-2">
             <Image
               src="/filter-lines.png"
               alt="filter"
@@ -99,27 +108,13 @@ const AccountsPayableTable = () => {
             />
             <span className="font-inter">Filters</span>
           </div>
-          <div className="flex flex-row items-center justify-between gap-2 p-2 border border-solid border-gray-300 rounded-lg">
-            <Image src="/exporticon.svg" alt="export" width={20} height={20} />
-            <span className="font-inter">Export</span>
-          </div>
         </div>
       </div>
 
-      <div className="overflow-x-auto w-full">
-        <table className="w-full border-b border-solid border-gray-300 border-collapse">
-          <thead className="border-b border-solid border-gray-300">
+      <div className="w-full">
+        <table className="w-full border-b border-solid border-[#EAECF0] border-collapse">
+          <thead className="border-b border-solid border-[#EAECF0]">
             <tr>
-              <th className="p-2">
-                <div className="flex items-center justify-center">
-                  <input
-                    type="checkbox"
-                    checked={selectedRows.size === currentData.length}
-                    onChange={handleSelectAll}
-                    className="rounded size-6"
-                  />
-                </div>
-              </th>
               {[
                 "Invoice Number",
                 "Invoice Date",
@@ -129,60 +124,66 @@ const AccountsPayableTable = () => {
                 "Supplier Name",
                 "Status",
                 "",
-              ].map((header, index) => (
-                <th
-                  key={header}
-                  className="p-2 text-center font-medium text-gray-600 font-inter cursor-pointer"
-                  onClick={() =>
-                    header &&
-                    header !== "" &&
-                    handleSort(header.toLowerCase().replace(/\s+/g, ""))
-                  }
-                >
-                  <div className="flex items-center justify-center gap-2">
-                    {header}
-                    {header && header !== "" && (
-                      <ChevronDown className="w-4 h-4" />
-                    )}
-                  </div>
-                </th>
-              ))}
+              ].map((header, index) => {
+                const columnKey = header ? getColumnKey(header) : null;
+                const isCurrentSort = sortConfig.key === columnKey;
+                
+                return (
+                  <th
+                    key={header}
+                    className="px-2 py-3 text-center font-medium text-gray-600 font-inter cursor-pointer"
+                    onClick={() =>
+                      header && header !== "" && handleSort(columnKey)
+                    }
+                  >
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="py-1">{header}</span>
+                      {header && header !== "" && (
+                        <div className="flex items-center justify-center">
+                          {isCurrentSort ? (
+                            sortConfig.direction === "desc" ? (
+                              <ArrowDown className="w-4 h-4 text-[#667085] font-semibold" />
+                            ) : (
+                              <ArrowUp className="w-4 h-4 text-[#667085] font-semibold" />
+                            )
+                          ) : (
+                            <ArrowDown className="w-4 h-4 text-[#667085] font-semibold" />
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody>
             {currentData.map((row, index) => (
               <tr
                 key={startIndex + index}
-                className={`border-b border-solid border-gray-300 ${
+                className={`border-b border-solid border-[#EAECF0] ${
                   index % 2 === 0 ? "bg-black-0" : "bg-white"
                 }`}
               >
-                <td className="p-2">
-                  <div className="flex items-center justify-center">
-                    <input
-                      type="checkbox"
-                      checked={selectedRows.has(startIndex + index)}
-                      onChange={() => handleSelectRow(startIndex + index)}
-                      className="rounded border-gray-300 font-inter size-6"
-                    />
-                  </div>
-                </td>
-                <td className="p-2 text-center font-inter">
+                <td className="p-1.5 text-center  font-inter">
                   {row.invoiceNumber}
                 </td>
-                <td className="p-2 text-center font-inter">
+                <td className="p-1.5 text-center text-[#667085] font-inter">
                   {row.invoiceDate}
                 </td>
-                <td className="p-2 text-center font-inter">
+                <td className="p-1.5 text-center text-[#667085] font-inter">
                   ₹{row.amount.toLocaleString()}
                 </td>
-                <td className="p-2 text-center font-inter">
+                <td className="p-1.5 text-center text-[#667085] font-inter">
                   {row.invoiceDueDate}
                 </td>
-                <td className="p-2 text-center font-inter">
+                <td className="p-1.5 text-center text-[#667085] font-inter">
+                  {row.paymentTenure}
+                </td>
+                <td className="p-1.5 text-center text-[#667085] font-inter">
                   {row.supplierName || "-"}
                 </td>
-                <td className="p-2">
+                <td className="p-1.5 text-center text-[#667085] font-inter">
                   <div className="flex items-center justify-center">
                     <span
                       className={`px-4 py-2 rounded-full font-inter text-sm flex items-center gap-1 ${
@@ -202,10 +203,10 @@ const AccountsPayableTable = () => {
                     </span>
                   </div>
                 </td>
-                <td className="p-2">
+                <td className="p-1.5">
                   <div className="flex items-center justify-center">
-                    <button className="p-1 hover:bg-gray-100 rounded font-inter">
-                      <MoreVertical className="w-4 h-4" />
+                    <button className="p-1 hover:bg-black-5 bg-white rounded font-inter">
+                      <MoreVertical className="w-4 h-4 text-[#667085]" />
                     </button>
                   </div>
                 </td>
@@ -228,7 +229,7 @@ const AccountsPayableTable = () => {
               value={rowsPerPage}
               onChange={handleRowsPerPageChange}
             >
-              <option value={12}>12</option>
+              <option value={14}>14</option>
               <option value={20}>20</option>
               <option value={50}>50</option>
             </select>

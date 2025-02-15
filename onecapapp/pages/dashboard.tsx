@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
 import Sidebar from "../components/sidebar";
-import Navbarlanding from "../components/navbarlanding";
+import Navbarlanding from "../components/navbar";
 import RightBar from "../components/right-bar";
 import Dashboardcontent from "../components/dashboard/dashboardcontent";
 const dashboard: NextPage = () => {
   return (
     <div className="w-full relative rounded-boundvariablesdata bg-white-100 flex flex-row items-start justify-start flex-wrap content-start gap-0 leading-[normal] tracking-[normal] [row-gap:20px]">
       {/* Sidebar - Fixed Position */}
-      <div className="fixed left-0 top-0 h-full w-[250px] bg-white z-50 ">
+      <div className="fixed left-0 top-0 h-full w-[240px] bg-white z-50 ">
         <Sidebar />
       </div>
 
@@ -20,7 +20,6 @@ const dashboard: NextPage = () => {
           </div>
           <Dashboardcontent />
         </div>
-       
       </section>
 
       {/* Right Sidebar */}

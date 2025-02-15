@@ -17,7 +17,7 @@ const Landingbody: NextPage<LandingbodyType> = ({ className = "" }) => {
           width={192}
           height={192}
           alt=""
-          src="/empty--img-empty-collect-collections.svg"
+          src="/startpagebox.svg"
         />
         <div className="self-stretch flex flex-col items-center justify-center gap-6">
           <div className="self-stretch flex flex-col items-center justify-start gap-2">
