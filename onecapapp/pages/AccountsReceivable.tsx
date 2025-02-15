@@ -22,7 +22,6 @@ const AccountsReceivable: NextPage = () => {
             <AccountReceivablecontent />
         </div> 
         </div>
-       
       </section>
     </div>
   );

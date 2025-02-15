@@ -8,15 +8,15 @@ export type Text1Type = {
   showStatNames?: boolean;
 
   /** Variant props */
-  direction?: string;
-  number?: 1;
+  direction: string;
+  number: number;
 
   /** Style props */
-  textAlignSelf?: CSSProperties["alignSelf"];
-  textPadding?: CSSProperties["padding"];
-  textHeight?: CSSProperties["height"];
-  textWidth?: CSSProperties["width"];
-  textFlex?: CSSProperties["flex"];
+  textAlignSelf: string;
+  textPadding: string;
+  textHeight: string;
+  textWidth: string;
+  textFlex: string;
   statNamesFontWeight?: CSSProperties["fontWeight"];
   statNamesTextDecoration?: CSSProperties["textDecoration"];
   statNamesAlignSelf?: CSSProperties["alignSelf"];
@@ -24,6 +24,17 @@ export type Text1Type = {
   statNamesHeight?: CSSProperties["height"];
   statNamesColor?: CSSProperties["color"];
   statNamesTextAlign?: CSSProperties["textAlign"];
+
+  itemNameList?: string;
+  showItemNameList?: boolean;
+  itemNameListFontWeight?: string;
+  itemNameListTextDecoration?: string;
+  itemNameListAlignSelf?: string;
+  itemNameListWidth?: string;
+  itemNameListHeight?: string;
+  itemNameListColor?: string;
+  itemNameListTextAlign?: string;
+  itemNameListFontFamily?: string;
 };
 
 const Text1: NextPage<Text1Type> = ({
@@ -44,6 +55,16 @@ const Text1: NextPage<Text1Type> = ({
   statNamesHeight,
   statNamesColor,
   statNamesTextAlign,
+  itemNameList,
+  showItemNameList,
+  itemNameListFontWeight,
+  itemNameListTextDecoration,
+  itemNameListAlignSelf,
+  itemNameListWidth,
+  itemNameListHeight,
+  itemNameListColor,
+  itemNameListTextAlign,
+  itemNameListFontFamily,
 }) => {
   const textStyle: CSSProperties = useMemo(() => {
     return {

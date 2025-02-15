@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useMemo, type CSSProperties } from "react";
-import { Box } from "@mui/material";
+
 
 export type StripType = {
   className?: string;

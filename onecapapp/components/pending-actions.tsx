@@ -45,12 +45,21 @@ const PendingActions: NextPage<PendingActionsType> = ({ className = "" }) => {
     <div
       className={`self-stretch flex flex-col items-start justify-start relative gap-boundvariablesdata3 text-left text-sm text-black-100 font-regular ${className}`}
     >
-      <Text1
+        <Text1
         direction="Vertical"
         number={1}
-        statNames="Pending Action"
+        textAlignSelf="stretch"
+        textPadding="8px 4px"
+        textHeight="unset"
+        textWidth="unset"
+        textFlex="unset"
+        statNames="Pending Actions"
+        showStatNames
         statNamesFontWeight="600"
-        statNamesTextDecoration="unset"
+        statNamesTextDecoration="none"
+        statNamesAlignSelf="stretch"
+        statNamesWidth="unset"
+        statNamesHeight="unset"
         statNamesColor="#1c1c1c"
         statNamesTextAlign="left"
       />
